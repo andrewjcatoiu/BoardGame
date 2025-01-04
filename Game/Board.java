@@ -8,7 +8,7 @@ public class Board {
 
     public Board(ArrayList<String> players, ArrayList<String> tiles, ArrayList<String> deck) {
         this.players = new ArrayList<>();
-        this.tiles = tiles;
-        this.deck = deck;
-    }    
+        this.tiles = new ArrayList<>();
+        this.deck = new ArrayList<>();
+    }
 }
