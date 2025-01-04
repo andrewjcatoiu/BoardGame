@@ -13,21 +13,25 @@ public class Deck {
     public ArrayList<Card> deck;
 
     public Deck() {
-        this.deck = new ArrayList<>();
+        this.deck = initDeck();
     };
 
 
-    public void initDeck() {
+    public ArrayList<Card> initDeck() {
+        ArrayList<Card> deck = new ArrayList<>();
         String[] materialOptions = {"Wood", "Brick", "Sheep", "Wheat", "Ore"};
         for (String m : materialOptions) {
             for (int i = 0; i < MATERIAL_CAPACITY; i++) {
                 deck.add(new Card(m));
             }
         }
+
+        System.out.println(this.deck);
+        return deck;
     }
 
     public void shuffle() {
-        
+
     }
 
 
