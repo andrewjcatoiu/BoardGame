@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 
 
-public class Deck {
+public final class Deck {
     // 95 cards
     // 19 each material
 
@@ -13,21 +13,19 @@ public class Deck {
     public ArrayList<Card> deck;
 
     public Deck() {
-        this.deck = initDeck();
+        this.deck = new ArrayList<>();
     };
 
 
-    public ArrayList<Card> initDeck() {
-        ArrayList<Card> deck = new ArrayList<>();
+    public void initDeck() {
         String[] materialOptions = {"Wood", "Brick", "Sheep", "Wheat", "Ore"};
         for (String m : materialOptions) {
             for (int i = 0; i < MATERIAL_CAPACITY; i++) {
                 deck.add(new Card(m));
             }
         }
-// working??
+        
         System.out.println(this.deck);
-        return deck;
     }
 
     public void shuffle() {
