@@ -4,10 +4,12 @@ public class Game {
 
         // Board board = new Board();
         Deck deck = new Deck();
-        deck.initDeck();
+        deck.initDecks();
         System.out.println(deck);
 
         deck.shuffle();
         System.out.println(deck);
+
+        
     }
 }
