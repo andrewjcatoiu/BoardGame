@@ -1,14 +1,18 @@
 public class Tile {
 
-    private String m;
-    private int n;
+    private final String material;
+    private int number;
     private int x;
     private int y;
 
-    public Tile(String material, int number, int x, int y) {
-        this.m = material;
-        this.n = number;
-        this.x = x;
-        this.y = y;
+    public Tile(String m, int n, int x, int y) {
+        material = m;
+        number = n;
+        x = x;
+        y = y;
+    }
+
+    public Tile(String m) {
+        material = m;
     }
 }

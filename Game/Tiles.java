@@ -8,6 +8,6 @@ public class Tiles {
     }
 
     public void initTiles() {
-        tiles.add(new Tile("hello", 2, 3, 4));
+        tiles.add(new Tile("Wood"));
     }
 }
