@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Tiles {
     private final ArrayList<Tile> tiles;
@@ -21,5 +22,15 @@ public class Tiles {
 
     public void shuffle() {
         Collections.shuffle(tiles);
+    }
+
+    @Override
+    public String toString() {
+        List<String> tilesAsString = new ArrayList<>();
+        for (Tile tile : tiles) {
+            tilesAsString.add(tile.getMaterial());
+        }
+        
+        return tilesAsString.toString();
     }
 }
