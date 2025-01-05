@@ -5,5 +5,6 @@ public class Game {
         // Board board = new Board();
         Deck deck = new Deck();
         deck.initDeck();
+        System.out.println(deck);
     }
 }

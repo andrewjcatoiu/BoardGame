@@ -36,10 +36,14 @@ public final class Deck {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder("[");
         for (Card card : this.deck) {
-
+            sb.append(card.getMaterial());
+            sb.append(", ");
         }
+        sb.append("]");
+
+        return sb.toString();
     }
 
 
