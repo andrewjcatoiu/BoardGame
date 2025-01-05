@@ -23,4 +23,9 @@ public class Numbers {
     public void shuffle() {
         Collections.shuffle(numbers);
     }
+
+    @Override
+    public String toString() {
+        return "Numbers: " + numbers.toString() + "\n";
+    }
 }
