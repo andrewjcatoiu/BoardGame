@@ -5,3 +5,5 @@ Card.class
 Deck.class
 Game.class
 DevCard.class
+Tile.class
+Tiles.class

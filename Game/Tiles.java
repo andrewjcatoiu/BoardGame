@@ -30,7 +30,8 @@ public class Tiles {
         for (Tile tile : tiles) {
             tilesAsString.add(tile.getMaterial());
         }
-        
-        return tilesAsString.toString();
+
+        String str = "Tiles: " + tilesAsString.toString() + "\n";
+        return str;
     }
 }
