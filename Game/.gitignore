@@ -7,3 +7,4 @@ Game.class
 DevCard.class
 Tile.class
 Tiles.class
+Dice.class
