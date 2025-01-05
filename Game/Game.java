@@ -6,5 +6,8 @@ public class Game {
         Deck deck = new Deck();
         deck.initDeck();
         System.out.println(deck);
+
+        deck.shuffle();
+        System.out.println(deck);
     }
 }

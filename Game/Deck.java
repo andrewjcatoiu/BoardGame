@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 
@@ -28,7 +29,7 @@ public final class Deck {
     }
 
     public void shuffle() {
-
+        Collections.shuffle(this.deck);
     }
 
     @Override
