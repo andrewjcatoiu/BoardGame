@@ -15,4 +15,8 @@ public class Tile {
     public Tile(String m) {
         material = m;
     }
+
+    public String getMaterial() {
+        return material;
+    }
 }
