@@ -10,7 +10,7 @@ public class Tiles {
     }
 
     public void initTiles() {
-        String[][] tileCounts = {{"Wood", "4"}, {"Brick", "3"}, {"Sheep", "4"}, {"Wheat", "4"}, {"Ore", "3"}};
+        String[][] tileCounts = {{"Wood", "4"}, {"Brick", "3"}, {"Sheep", "4"}, {"Wheat", "4"}, {"Ore", "3"}, {"Desert", "1"}};
         for (String[] type : tileCounts) {
             String material = type[0];
             int capacity = Integer.parseInt(type[1]);
