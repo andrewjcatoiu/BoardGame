@@ -5,4 +5,8 @@ public class Card {
     public Card(String material) {
         this.material = material;
     }
+
+    public String getMaterial() {
+        return this.material;
+    }
 }

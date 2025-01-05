@@ -21,10 +21,12 @@ public final class Deck {
         String[] materialOptions = {"Wood", "Brick", "Sheep", "Wheat", "Ore"};
         for (String m : materialOptions) {
             for (int i = 0; i < MATERIAL_CAPACITY; i++) {
-                deck.add(new Card(m));
+                Card card = new Card(m);
+                deck.add(card);
+                System.out.println(card.getMaterial());
             }
         }
-        
+
         System.out.println(this.deck);
     }
 
@@ -32,6 +34,13 @@ public final class Deck {
 
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("");
+        for (Card card : this.deck) {
+
+        }
+    }
 
 
     // ArrayList of cards with type 'Card'
