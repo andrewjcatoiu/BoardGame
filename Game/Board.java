@@ -1,5 +1,5 @@
-
 public class Board {
+
     private final Deck deck;
     private final Tiles tiles;
     
