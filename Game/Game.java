@@ -1,3 +1,4 @@
+
 public class Game {
     public static void main(String[] args) {
         System.out.println("Hello World");
@@ -10,6 +11,10 @@ public class Game {
         deck.shuffle();
         System.out.println(deck);
 
-        
+        // Tiles tiles = new Tiles();
+        // tiles.initTiles();
+        // tiles.shuffle();
+
+
     }
 }
