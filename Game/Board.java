@@ -29,4 +29,14 @@ public class Board {
         this.numbers.shuffle();
         System.out.println(this.numbers);
     }
+
+    public void display() {
+        for (Tile tile : this.tiles.getTiles()) {
+            // fill up a coordinate plane
+        }
+
+        for (int number : this.numbers.getNumbers()) {
+            // fill up same coordinate plane
+        }
+    }
 }
