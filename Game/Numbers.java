@@ -24,6 +24,10 @@ public class Numbers {
         Collections.shuffle(numbers);
     }
 
+    public ArrayList<Integer> getNumbers() {
+        return this.numbers;
+    }
+
     @Override
     public String toString() {
         return "Numbers: " + numbers.toString() + "\n";
