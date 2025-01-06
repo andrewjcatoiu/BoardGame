@@ -24,6 +24,10 @@ public class Tiles {
         Collections.shuffle(tiles);
     }
 
+    public ArrayList<Tile> getTiles() {
+        return this.tiles;
+    }
+
     @Override
     public String toString() {
         List<String> tilesAsString = new ArrayList<>();
