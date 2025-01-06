@@ -1,4 +1,7 @@
 
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 
@@ -36,16 +39,24 @@ public class Board {
 
     public void display() {
         JFrame frame = new JFrame("Board Game");
-        frame.setSize(400, 300);
+        frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        frame.setLayout(new GridLayout(4, 5));
 
-        for (Tile tile : this.tiles.getTiles()) {
-            // fill up a coordinate plane
-        }
+        ArrayList<Integer> numbers = this.numbers.getNumbers();
+        int i = 0;
 
-        for (int number : this.numbers.getNumbers()) {
-            // fill up same coordinate plane
+        for (Tile tile : this.tiles.getTiles()) {            
+            String material = tile.getMaterial();
+            Integer n = null;
+            if (!material.equals("Desert")) {
+                n = numbers.get(i);
+            }
+            JButton button = new JButton(tile.getMaterial() + " " + (n != null ? n : ""));
+            
+            frame.add(button);
+            i++;
         }
     }
 }
