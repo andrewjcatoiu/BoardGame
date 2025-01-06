@@ -1,3 +1,7 @@
+
+import javax.swing.JFrame;
+
+
 public class Board {
 
     private final Deck deck;
@@ -31,6 +35,11 @@ public class Board {
     }
 
     public void display() {
+        JFrame frame = new JFrame("Board Game");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
         for (Tile tile : this.tiles.getTiles()) {
             // fill up a coordinate plane
         }
