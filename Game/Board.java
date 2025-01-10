@@ -47,7 +47,7 @@ public class Board {
         ArrayList<Integer> numbers = this.numbers.getNumbers();
         int i = 0;
 
-        for (Tile tile : this.tiles.getTiles()) {            
+        for (Tile tile : this.tiles.getTiles()) {
             String material = tile.getMaterial();
             Integer n = null;
             if (!material.equals("Desert")) {
