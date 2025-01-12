@@ -15,6 +15,9 @@ public class Game {
 
         
         board.initBoard();
+        Bank bank = new Bank();
+
+        
 
         dice.roll();
         dice.roll();
