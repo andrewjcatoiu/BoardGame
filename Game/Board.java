@@ -1,6 +1,5 @@
 
 import java.awt.Color;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -78,77 +77,76 @@ public class Board {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
 
-            int hexSize = 60; // Side length of each hexagon
-            int xOffset = 100; // X offset for the board
-            int yOffset = 100; // Y offset for the board
-            double hexHeight = Math.sqrt(3) * hexSize; // Height of a hexagon
-            double hexWidth = 2 * hexSize; // Width of a hexagon
-            double verticalSpacing = hexHeight * 0.75; // Staggered vertical spacing
-            double horizontalSpacing = hexSize * 1.5; // Horizontal spacing
+            Tile tile = tiles.get(0);
+            String material = tile.getMaterial();
+            Color color = getMaterialColor(material);
 
-            int[][] hexPositions = {
-                {0, 0}, {1, 0}, {2, 0},
-                {-1, 1}, {0, 1}, {1, 1}, {2, 1}, {3, 1},
-                {-2, 2}, {-1, 2}, {0, 2}, {1, 2}, {2, 2}, {3, 2}, {4, 2},
-                {-1, 3}, {0, 3}, {1, 3}, {2, 3}, {3, 3},
-                {0, 4}, {1, 4}, {2, 4}
-            };
-
-            int tileIndex = 0;
-            for (int[] position : hexPositions) {
-                if (tileIndex >= tiles.size()) break;
-
-                // Calculate hexagon coordinates
-                int x = xOffset + (int) (position[0] * horizontalSpacing);
-                int y = yOffset + (int) (position[1] * verticalSpacing);
-                drawHexagon(g2d, x, y, hexSize, tiles.get(tileIndex), numbers, tileIndex);
-                tileIndex++;
-            }
+            drawHexagon(g2d, 300, 500, 50, material, color);
         }
 
     
-        private void drawHexagon(Graphics2D g2d, int x, int y, int size, Tile tile, ArrayList<Integer> numbers, int tileIndex) {
-            Polygon hex = new Polygon();
+        // private void drawHexagon(Graphics2D g2d, int x, int y, int size, Tile tile, ArrayList<Integer> numbers, int tileIndex) {
+        //     Polygon hex = new Polygon();
+        //     for (int i = 0; i < 6; i++) {
+        //         int angle = 60 * i;
+        //         int xOffset = (int) (x + size * Math.cos(Math.toRadians(angle)));
+        //         int yOffset = (int) (y + size * Math.sin(Math.toRadians(angle)));
+        //         hex.addPoint(xOffset, yOffset);
+        //     }
+    
+        //     // Set color based on material
+        //     Color color = getMaterialColor(tile.getMaterial());
+        //     g2d.setColor(color);
+        //     g2d.fillPolygon(hex);
+    
+        //     // Draw the hexagon border
+        //     g2d.setColor(Color.BLACK);
+        //     g2d.drawPolygon(hex);
+    
+        //     // Draw the number in a circle (if applicable)
+        //     Integer num = tileIndex < numbers.size() ? numbers.get(tileIndex) : null;
+        //     if (num != null) {
+        //         g2d.setColor(Color.WHITE);
+        //         int circleRadius = 20;
+        //         g2d.fillOval(x - circleRadius / 2, y - circleRadius / 2, circleRadius, circleRadius);
+    
+        //         g2d.setColor(Color.BLACK);
+        //         g2d.drawOval(x - circleRadius / 2, y - circleRadius / 2, circleRadius, circleRadius);
+    
+        //         String numText = String.valueOf(num);
+        //         FontMetrics fm = g2d.getFontMetrics();
+        //         int textX = x - fm.stringWidth(numText) / 2;
+        //         int textY = y + fm.getAscent() / 2;
+        //         g2d.drawString(numText, textX, textY);
+        //     }
+    
+        //     // Draw the material name
+        //     g2d.setColor(Color.BLACK);
+        //     String material = tile.getMaterial();
+        //     FontMetrics fm = g2d.getFontMetrics();
+        //     int textX = x - fm.stringWidth(material) / 2;
+        //     int textY = y + size / 2;
+        //     g2d.drawString(material, textX, textY);
+        // }
+
+        private void drawHexagon(Graphics2D g2d, int x, int y, int size, String material, Color color) {
+            int[] xPoints = new int[6];
+            int[] yPoints = new int[6];
             for (int i = 0; i < 6; i++) {
-                int angle = 60 * i;
-                int xOffset = (int) (x + size * Math.cos(Math.toRadians(angle)));
-                int yOffset = (int) (y + size * Math.sin(Math.toRadians(angle)));
-                hex.addPoint(xOffset, yOffset);
+                xPoints[i] = x + (int) (size * Math.cos(Math.toRadians(60 * i + 30)));
+                yPoints[i] = y + (int) (size * Math.sin(Math.toRadians(60 * i + 30)));
+
             }
-    
-            // Set color based on material
-            Color color = getMaterialColor(tile.getMaterial());
+
+            Polygon hexagon = new Polygon(xPoints, yPoints, 6);
             g2d.setColor(color);
-            g2d.fillPolygon(hex);
-    
-            // Draw the hexagon border
+            g2d.fillPolygon(hexagon);
+
             g2d.setColor(Color.BLACK);
-            g2d.drawPolygon(hex);
-    
-            // Draw the number in a circle (if applicable)
-            Integer num = tileIndex < numbers.size() ? numbers.get(tileIndex) : null;
-            if (num != null) {
-                g2d.setColor(Color.WHITE);
-                int circleRadius = 20;
-                g2d.fillOval(x - circleRadius / 2, y - circleRadius / 2, circleRadius, circleRadius);
-    
-                g2d.setColor(Color.BLACK);
-                g2d.drawOval(x - circleRadius / 2, y - circleRadius / 2, circleRadius, circleRadius);
-    
-                String numText = String.valueOf(num);
-                FontMetrics fm = g2d.getFontMetrics();
-                int textX = x - fm.stringWidth(numText) / 2;
-                int textY = y + fm.getAscent() / 2;
-                g2d.drawString(numText, textX, textY);
-            }
-    
-            // Draw the material name
+            g2d.drawPolygon(hexagon);
+
             g2d.setColor(Color.BLACK);
-            String material = tile.getMaterial();
-            FontMetrics fm = g2d.getFontMetrics();
-            int textX = x - fm.stringWidth(material) / 2;
-            int textY = y + size / 2;
-            g2d.drawString(material, textX, textY);
+            g2d.drawString(material, x - size / 2, y);
         }
     
         private Color getMaterialColor(String material) {
