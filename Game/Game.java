@@ -23,6 +23,6 @@ public class Game {
         dice.roll();
         dice.roll();
 
-        // board.display();
+        board.display();
     }
 }
