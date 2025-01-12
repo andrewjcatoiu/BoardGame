@@ -78,29 +78,34 @@ public class Board {
             Graphics2D g2d = (Graphics2D) g;
 
             int tileSize = 50;
+            int startX = 200;
+            int startY = 100;
+
             int xOffset = (int) (tileSize * Math.sqrt(3));
             int yOffset = tileSize * 3 / 2;
 
+            int[][] rowCounts = {{3}, {4}, {5}, {4}, {3}};
             int tileIndex = 0;
-            int rows = 5;
-            int columns = 5;
 
-            for (int row = 0; row < rows; row++) {
-                for (int col = 0; col < columns; col++) {
-                    if (tileIndex >= tiles.size()) {
-                        return;
+            for (int row = 0; row < rowCounts.length; row++) {
+                int rowLength = rowCounts[row][0];
+                int rowStartX = startX - (rowLength - 1) * xOffset / 2;
+
+                for (int col = 0; col < rowLength; col++) {
+                    if (tileIndex < tiles.size()) {
+                        Tile tile = tiles.get(tileIndex);
+                        Integer number = tileIndex < numbers.size() ? numbers.get(tileIndex) : null;
+
+                        String material = tile.getMaterial();
+                        Color color = getMaterialColor(material);
+
+                        int x = rowStartX + col * xOffset;
+                        int y = startY + row * yOffset;
+
+                        drawHexagon(g2d, x, y, tileSize, material, color, number);
+
+                        tileIndex++;
                     }
-
-                    int x = 100 + col * xOffset + (row % 2 == 1 ? xOffset / 2 : 0);
-                    int y = 100 + row * yOffset;
-
-                    Tile tile = tiles.get(tileIndex);
-                    String material = tile.getMaterial();
-                    Color color = getMaterialColor(material);
-
-                    drawHexagon(g2d, x, y, tileSize, material, color);
-
-                    tileIndex++;
                 }
             }
         }
@@ -151,7 +156,7 @@ public class Board {
         //     g2d.drawString(material, textX, textY);
         // }
 
-        private void drawHexagon(Graphics2D g2d, int x, int y, int size, String material, Color color) {
+        private void drawHexagon(Graphics2D g2d, int x, int y, int size, String material, Color color, Integer number) {
             int[] xPoints = new int[6];
             int[] yPoints = new int[6];
             for (int i = 0; i < 6; i++) {
@@ -168,7 +173,19 @@ public class Board {
             g2d.drawPolygon(hexagon);
 
             g2d.setColor(Color.BLACK);
-            g2d.drawString(material, x - size / 2, y);
+            String text = material;
+            int textX = x - g2d.getFontMetrics().stringWidth(text) / 2;
+            int textY = y + g2d.getFontMetrics().getAscent() - 15;
+
+            g2d.drawString(text, textX, textY);
+
+            if (number != null) {
+                String numText = String.valueOf(number);
+                int numberX = x - g2d.getFontMetrics().stringWidth(numText) / 2;
+                int numberY = y + g2d.getFontMetrics().getAscent() + 5;
+                
+                g2d.drawString(numText, numberX, numberY);
+            }
         }
     
         private Color getMaterialColor(String material) {
