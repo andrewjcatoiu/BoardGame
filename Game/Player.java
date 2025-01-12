@@ -7,4 +7,9 @@ public class Player {
         this.name = name;
         this.color = color;
     }
+
+    @Override
+    public String toString() {
+        return this.name + " is playing as " + this.color;
+    }
 }

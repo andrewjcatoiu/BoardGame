@@ -9,3 +9,5 @@ Tile.class
 Tiles.class
 Dice.class
 Numbers.class
+Player.class
+Bank.class
