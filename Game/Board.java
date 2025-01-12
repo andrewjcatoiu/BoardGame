@@ -77,12 +77,34 @@ public class Board {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
 
-            Tile tile = tiles.get(0);
-            String material = tile.getMaterial();
-            Color color = getMaterialColor(material);
+            int tileSize = 50;
+            int xOffset = (int) (tileSize * Math.sqrt(3));
+            int yOffset = tileSize * 3 / 2;
 
-            drawHexagon(g2d, 300, 500, 50, material, color);
+            int tileIndex = 0;
+            int rows = 5;
+            int columns = 5;
+
+            for (int row = 0; row < rows; row++) {
+                for (int col = 0; col < columns; col++) {
+                    if (tileIndex >= tiles.size()) {
+                        return;
+                    }
+
+                    int x = 100 + col * xOffset + (row % 2 == 1 ? xOffset / 2 : 0);
+                    int y = 100 + row * yOffset;
+
+                    Tile tile = tiles.get(tileIndex);
+                    String material = tile.getMaterial();
+                    Color color = getMaterialColor(material);
+
+                    drawHexagon(g2d, x, y, tileSize, material, color);
+
+                    tileIndex++;
+                }
+            }
         }
+
 
     
         // private void drawHexagon(Graphics2D g2d, int x, int y, int size, Tile tile, ArrayList<Integer> numbers, int tileIndex) {
