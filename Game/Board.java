@@ -3,6 +3,7 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 
 public class Board {
@@ -39,24 +40,34 @@ public class Board {
 
     public void display() {
         JFrame frame = new JFrame("Board Game");
-        frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 800);
+        frame.add(new HexBoardPanel(tiles.getTiles(), numbers.getNumbers()));
         frame.setVisible(true);
-        frame.setLayout(new GridLayout(4, 5));
 
-        ArrayList<Integer> numbers = this.numbers.getNumbers();
-        int i = 0;
+        // ArrayList<Integer> numbers = this.numbers.getNumbers();
+        // int i = 0;
 
-        for (Tile tile : this.tiles.getTiles()) {
-            String material = tile.getMaterial();
-            Integer n = null;
-            if (!material.equals("Desert")) {
-                n = numbers.get(i);
-            }
-            JButton button = new JButton(tile.getMaterial() + " " + (n != null ? n : ""));
+        // for (Tile tile : this.tiles.getTiles()) {
+        //     String material = tile.getMaterial();
+        //     Integer n = null;
+        //     if (!material.equals("Desert")) {
+        //         n = numbers.get(i);
+        //     }
+        //     JButton button = new JButton(tile.getMaterial() + " " + (n != null ? n : ""));
             
-            frame.add(button);
-            i++;
+        //     frame.add(button);
+        //     i++;
+        // }
+    }
+
+    private class HexBoardPanel extends JPanel {
+        private final ArrayList<Tile> tiles;
+        private final ArrayList<Integer> numbers;
+
+        public HexBoardPanel(ArrayList<Tile> tiles, ArrayList<Integer> numbers) {
+            this.tiles = tiles;
+            this.numbers = numbers;
         }
     }
 }
