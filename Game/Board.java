@@ -162,7 +162,6 @@ public class Board {
             for (int i = 0; i < 6; i++) {
                 xPoints[i] = x + (int) (size * Math.cos(Math.toRadians(60 * i + 30)));
                 yPoints[i] = y + (int) (size * Math.sin(Math.toRadians(60 * i + 30)));
-
             }
 
             Polygon hexagon = new Polygon(xPoints, yPoints, 6);
@@ -180,10 +179,20 @@ public class Board {
             g2d.drawString(text, textX, textY);
 
             if (number != null) {
+                int circleRadius = 20;
+                int circleX = x - circleRadius / 2;
+                int circleY = y + 13 - circleRadius / 2;
+
+                g2d.setColor(Color.WHITE);
+                g2d.fillOval(circleX, circleY, circleRadius, circleRadius);
+                g2d.setColor(Color.BLACK);
+                g2d.drawOval(circleX, circleY, circleRadius, circleRadius);
+
                 String numText = String.valueOf(number);
                 int numberX = x - g2d.getFontMetrics().stringWidth(numText) / 2;
                 int numberY = y + g2d.getFontMetrics().getAscent() + 5;
                 
+                g2d.setColor(Color.BLACK);
                 g2d.drawString(numText, numberX, numberY);
             }
         }
