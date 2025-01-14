@@ -22,19 +22,19 @@ public class Board {
 
     public void initBoard() {
         this.deck.initDecks();
-        System.out.println(this.deck);
+        // System.out.println(this.deck);
         
         this.numbers.initNumbers();
-        System.out.println(this.numbers);
+        // System.out.println(this.numbers);
 
         this.tiles.initTiles(this.numbers);
-        System.out.println(this.tiles);
+        // System.out.println(this.tiles);
         
         this.tiles.shuffle();
-        System.out.println(this.tiles);
+        // System.out.println(this.tiles);
         
         this.deck.shuffle();
-        System.out.println(this.deck);
+        // System.out.println(this.deck);
     }
 
     public void display() {
@@ -95,6 +95,27 @@ public class Board {
             }
 
             Polygon hexagon = new Polygon(xPoints, yPoints, 6);
+            System.out.println(material + " " + number);
+            ArrayList<int[]> arr = new ArrayList<>();
+            for (int i = 0; i < xPoints.length; i++) {
+                int[] coords = new int[2];
+                coords[0] = xPoints[i];
+                coords[1] = yPoints[i];
+                arr.add(coords);
+                System.out.println("Coord " + i + ": (" + coords[0] + ", " + coords[1] + ")");
+                String s = "(" + coords[0] + ", " + coords[1] + ")";
+                g2d.drawString(s, coords[0], coords[1]);
+            }
+
+            // for (int a : xPoints) {
+            //     System.out.println(a);
+            // }
+
+            // for (int b : yPoints) {
+            //     System.out.println(b);
+            // }
+            System.out.println();
+            
             g2d.setColor(color);
             g2d.fillPolygon(hexagon);
 
@@ -145,6 +166,5 @@ public class Board {
                     return Color.LIGHT_GRAY; // Default color
             }
         }
-    }
-    
+    }   
 }
