@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Numbers {
     private final ArrayList<Integer> numbers;
@@ -18,10 +17,6 @@ public class Numbers {
                 numbers.add(r);
             }
         }
-    }
-
-    public void shuffle() {
-        Collections.shuffle(numbers);
     }
 
     public ArrayList<Integer> getNumbers() {
