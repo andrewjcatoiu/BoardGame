@@ -26,9 +26,6 @@ public class Board {
         
         this.numbers.initNumbers();
         System.out.println(this.numbers);
-        
-        // this.numbers.shuffle();
-        // System.out.println(this.numbers);
 
         this.tiles.initTiles(this.numbers);
         System.out.println(this.tiles);
@@ -36,25 +33,23 @@ public class Board {
         this.tiles.shuffle();
         System.out.println(this.tiles);
         
-        // this.deck.shuffle();
-        // System.out.println(this.deck);
+        this.deck.shuffle();
+        System.out.println(this.deck);
     }
 
     public void display() {
         JFrame frame = new JFrame("Board Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
-        frame.add(new HexBoardPanel(tiles.getTiles(), numbers.getNumbers()));
+        frame.add(new HexBoardPanel(tiles.getTiles()));
         frame.setVisible(true);        
     }
 
     private class HexBoardPanel extends JPanel {
         private final ArrayList<Tile> tiles;
-        private final ArrayList<Integer> numbers;
     
-        public HexBoardPanel(ArrayList<Tile> tiles, ArrayList<Integer> numbers) {
+        public HexBoardPanel(ArrayList<Tile> tiles) {
             this.tiles = tiles;
-            this.numbers = numbers;
         }
     
         @Override
@@ -68,27 +63,25 @@ public class Board {
 
             int xOffset = (int) (tileSize * Math.sqrt(3));
             int yOffset = tileSize * 3 / 2;
-            int numberIndex = 0;
 
-            int[] rowCounts = {3, 4, 5, 4, 3};
+            int[] rows = {3, 4, 5, 4, 3};
+            int tileIndex = 0;
 
-            for (int row = 0; row < rowCounts.length; row++) {
-                int tilesInRow = rowCounts[row];
+            for (int row = 0; row < rows.length; row++) {
+                int tilesInRow = rows[row];
                 int rowX = startX - (tilesInRow * xOffset) / 2;
                 int rowY = startY + row * yOffset;
 
                 for (int col = 0; col < tilesInRow; col++) {
-                    if (numberIndex >= numbers.size()) {
-                        break;
+                    if (tileIndex < tiles.size()) {                        
+                        Tile tile = tiles.get(tileIndex);
+                        String material = tile.getMaterial();
+                        Color color = getMaterialColor(material);
+                        Integer number = tile.getNumber() != 0 ? tile.getNumber() : null;
+                        drawHexagon(g2d, rowX + col * xOffset, rowY, tileSize, material, color, number);
+
+                        tileIndex++;
                     }
-
-                    Tile tile = tiles.get(row * 5 + col);
-                    String material = tile.getMaterial();
-                    Color color = getMaterialColor(material);
-
-                    Integer number = !"Desert".equalsIgnoreCase(material) ? numbers.get(numberIndex++) : null;
-
-                    drawHexagon(g2d, rowX, rowY, tileSize, material, color, number);
                 }
             }
         }
@@ -115,7 +108,7 @@ public class Board {
 
             g2d.drawString(text, textX, textY);
 
-            if (!"Desert".equalsIgnoreCase(material) && number != null) {
+            if (number != null) {
                 int circleRadius = 20;
                 int circleX = x - circleRadius / 2;
                 int circleY = y + 13 - circleRadius / 2;
@@ -147,7 +140,7 @@ public class Board {
                 case "Ore":
                     return new Color(169, 169, 169); // Gray
                 case "Desert":
-                    return new Color(238, 221, 130); // Sand
+                    return new Color(242, 179, 86); // Sand
                 default:
                     return Color.LIGHT_GRAY; // Default color
             }

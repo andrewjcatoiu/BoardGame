@@ -14,7 +14,7 @@ public class Game {
 
         
         board.initBoard();
-        // Bank bank = new Bank();
+        Bank bank = new Bank();
 
         
 
@@ -22,6 +22,6 @@ public class Game {
         // dice.roll();
         // dice.roll();
 
-        // board.display();
+        board.display();
     }
 }
