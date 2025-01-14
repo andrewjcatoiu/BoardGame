@@ -27,8 +27,8 @@ public class Board {
         this.numbers.initNumbers();
         System.out.println(this.numbers);
         
-        this.numbers.shuffle();
-        System.out.println(this.numbers);
+        // this.numbers.shuffle();
+        // System.out.println(this.numbers);
 
         this.tiles.initTiles(this.numbers);
         System.out.println(this.tiles);
@@ -36,8 +36,8 @@ public class Board {
         this.tiles.shuffle();
         System.out.println(this.tiles);
         
-        this.deck.shuffle();
-        System.out.println(this.deck);
+        // this.deck.shuffle();
+        // System.out.println(this.deck);
     }
 
     public void display() {

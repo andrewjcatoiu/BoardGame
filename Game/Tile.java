@@ -5,6 +5,7 @@ public class Tile {
     private int x;
     private int y;
 
+
     public Tile(String m, int n, int x, int y) {
         material = m;
         number = n;
@@ -32,6 +33,4 @@ public class Tile {
     public int getY() {
         return y;
     }
-
-
 }
