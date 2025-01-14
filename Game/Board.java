@@ -23,21 +23,21 @@ public class Board {
     public void initBoard() {
         this.deck.initDecks();
         System.out.println(this.deck);
-
-        this.tiles.initTiles();
-        System.out.println(this.tiles);
-
+        
         this.numbers.initNumbers();
         System.out.println(this.numbers);
-
-        this.deck.shuffle();
-        System.out.println(this.deck);
-
-        this.tiles.shuffle();
-        System.out.println(this.tiles);
-
+        
         this.numbers.shuffle();
         System.out.println(this.numbers);
+
+        this.tiles.initTiles(this.numbers);
+        System.out.println(this.tiles);
+        
+        this.tiles.shuffle();
+        System.out.println(this.tiles);
+        
+        this.deck.shuffle();
+        System.out.println(this.deck);
     }
 
     public void display() {
@@ -45,22 +45,7 @@ public class Board {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
         frame.add(new HexBoardPanel(tiles.getTiles(), numbers.getNumbers()));
-        frame.setVisible(true);
-
-        // ArrayList<Integer> numbers = this.numbers.getNumbers();
-        // int i = 0;
-
-        // for (Tile tile : this.tiles.getTiles()) {
-        //     String material = tile.getMaterial();
-        //     Integer n = null;
-        //     if (!material.equals("Desert")) {
-        //         n = numbers.get(i);
-        //     }
-        //     JButton button = new JButton(tile.getMaterial() + " " + (n != null ? n : ""));
-            
-        //     frame.add(button);
-        //     i++;
-        // }
+        frame.setVisible(true);        
     }
 
     private class HexBoardPanel extends JPanel {
@@ -78,83 +63,35 @@ public class Board {
             Graphics2D g2d = (Graphics2D) g;
 
             int tileSize = 50;
-            int startX = 200;
+            int startX = 300;
             int startY = 100;
 
             int xOffset = (int) (tileSize * Math.sqrt(3));
             int yOffset = tileSize * 3 / 2;
+            int numberIndex = 0;
 
-            int[][] rowCounts = {{3}, {4}, {5}, {4}, {3}};
-            int tileIndex = 0;
+            int[] rowCounts = {3, 4, 5, 4, 3};
 
             for (int row = 0; row < rowCounts.length; row++) {
-                int rowLength = rowCounts[row][0];
-                int rowStartX = startX - (rowLength - 1) * xOffset / 2;
+                int tilesInRow = rowCounts[row];
+                int rowX = startX - (tilesInRow * xOffset) / 2;
+                int rowY = startY + row * yOffset;
 
-                for (int col = 0; col < rowLength; col++) {
-                    if (tileIndex < tiles.size()) {
-                        Tile tile = tiles.get(tileIndex);
-                        Integer number = tileIndex < numbers.size() ? numbers.get(tileIndex) : null;
-
-                        String material = tile.getMaterial();
-                        Color color = getMaterialColor(material);
-
-                        int x = rowStartX + col * xOffset;
-                        int y = startY + row * yOffset;
-
-                        drawHexagon(g2d, x, y, tileSize, material, color, number);
-
-                        tileIndex++;
+                for (int col = 0; col < tilesInRow; col++) {
+                    if (numberIndex >= numbers.size()) {
+                        break;
                     }
+
+                    Tile tile = tiles.get(row * 5 + col);
+                    String material = tile.getMaterial();
+                    Color color = getMaterialColor(material);
+
+                    Integer number = !"Desert".equalsIgnoreCase(material) ? numbers.get(numberIndex++) : null;
+
+                    drawHexagon(g2d, rowX, rowY, tileSize, material, color, number);
                 }
             }
         }
-
-
-    
-        // private void drawHexagon(Graphics2D g2d, int x, int y, int size, Tile tile, ArrayList<Integer> numbers, int tileIndex) {
-        //     Polygon hex = new Polygon();
-        //     for (int i = 0; i < 6; i++) {
-        //         int angle = 60 * i;
-        //         int xOffset = (int) (x + size * Math.cos(Math.toRadians(angle)));
-        //         int yOffset = (int) (y + size * Math.sin(Math.toRadians(angle)));
-        //         hex.addPoint(xOffset, yOffset);
-        //     }
-    
-        //     // Set color based on material
-        //     Color color = getMaterialColor(tile.getMaterial());
-        //     g2d.setColor(color);
-        //     g2d.fillPolygon(hex);
-    
-        //     // Draw the hexagon border
-        //     g2d.setColor(Color.BLACK);
-        //     g2d.drawPolygon(hex);
-    
-        //     // Draw the number in a circle (if applicable)
-        //     Integer num = tileIndex < numbers.size() ? numbers.get(tileIndex) : null;
-        //     if (num != null) {
-        //         g2d.setColor(Color.WHITE);
-        //         int circleRadius = 20;
-        //         g2d.fillOval(x - circleRadius / 2, y - circleRadius / 2, circleRadius, circleRadius);
-    
-        //         g2d.setColor(Color.BLACK);
-        //         g2d.drawOval(x - circleRadius / 2, y - circleRadius / 2, circleRadius, circleRadius);
-    
-        //         String numText = String.valueOf(num);
-        //         FontMetrics fm = g2d.getFontMetrics();
-        //         int textX = x - fm.stringWidth(numText) / 2;
-        //         int textY = y + fm.getAscent() / 2;
-        //         g2d.drawString(numText, textX, textY);
-        //     }
-    
-        //     // Draw the material name
-        //     g2d.setColor(Color.BLACK);
-        //     String material = tile.getMaterial();
-        //     FontMetrics fm = g2d.getFontMetrics();
-        //     int textX = x - fm.stringWidth(material) / 2;
-        //     int textY = y + size / 2;
-        //     g2d.drawString(material, textX, textY);
-        // }
 
         private void drawHexagon(Graphics2D g2d, int x, int y, int size, String material, Color color, Integer number) {
             int[] xPoints = new int[6];
@@ -178,7 +115,7 @@ public class Board {
 
             g2d.drawString(text, textX, textY);
 
-            if (number != null) {
+            if (!"Desert".equalsIgnoreCase(material) && number != null) {
                 int circleRadius = 20;
                 int circleX = x - circleRadius / 2;
                 int circleY = y + 13 - circleRadius / 2;

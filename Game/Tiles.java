@@ -9,13 +9,21 @@ public class Tiles {
         tiles = new ArrayList<>();
     }
 
-    public void initTiles() {
+    public void initTiles(Numbers numbers) {
+        ArrayList<Integer> numberList = numbers.getNumbers();
         String[][] tileCounts = {{"Wood", "4"}, {"Brick", "3"}, {"Sheep", "4"}, {"Wheat", "4"}, {"Ore", "3"}, {"Desert", "1"}};
+        int numberIndex = 0;
+
         for (String[] type : tileCounts) {
             String material = type[0];
             int capacity = Integer.parseInt(type[1]);
             for (int i = 0; i < capacity; i++) {
-                tiles.add(new Tile(material));
+                if (numberIndex < numberList.size()) {
+                    int number = numberList.get(numberIndex++);
+                    tiles.add(new Tile(material, number, 0, 0));
+                } else {
+                    tiles.add(new Tile(material, 0, 0, 0));
+                }
             }
         }
     }
