@@ -4,14 +4,28 @@ import java.util.List;
 
 public class Tiles {
     private final ArrayList<Tile> tiles;
+    private final ArrayList<Integer> numbers;
 
     public Tiles() {
         tiles = new ArrayList<>();
+        numbers = new ArrayList<>();
     }
 
-    public void initTiles(Numbers numbers) {
-        ArrayList<Integer> numberList = numbers.getNumbers();
-        Collections.shuffle(numberList);
+    public void initNumbers() {
+        int[] rolls = {2, 3, 4, 5, 6, 8, 9, 10, 11, 12};
+        for (int r : rolls) {
+            if (r != 2 && r != 12) {
+                numbers.add(r);
+                numbers.add(r);
+            } else {
+                numbers.add(r);
+            }
+        }
+    }
+
+    public void initTiles() {
+        initNumbers();
+        Collections.shuffle(numbers);
         String[][] tileCounts = {{"Wood", "4"}, {"Brick", "3"}, {"Sheep", "4"}, {"Wheat", "4"}, {"Ore", "3"}, {"Desert", "1"}};
         int numberIndex = 0;
 
@@ -20,7 +34,7 @@ public class Tiles {
             int capacity = Integer.parseInt(type[1]);
             for (int i = 0; i < capacity; i++) {
                 if (!material.equals("Desert")) {
-                    int number = numberList.get(numberIndex);
+                    int number = numbers.get(numberIndex);
                     tiles.add(new Tile(material, number, 0, 0));
                 } else {
                     tiles.add(new Tile(material, 0, 0, 0));
@@ -37,6 +51,10 @@ public class Tiles {
 
     public ArrayList<Tile> getTiles() {
         return this.tiles;
+    }
+
+    public ArrayList<Integer> getNumbers() {
+        return this.numbers;
     }
 
     @Override
