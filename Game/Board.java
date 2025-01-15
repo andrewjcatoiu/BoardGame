@@ -154,10 +154,6 @@ public class Board {
         }
     }
 
-    public Map<Integer, ArrayList<int[]>> getCoords() {
-        return this.coords;
-    }
-
     @Override
     public String toString() {
         if (coords.isEmpty()) {
