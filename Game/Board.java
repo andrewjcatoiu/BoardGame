@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -12,41 +14,41 @@ public class Board {
 
     private final Deck deck;
     private final Tiles tiles;
-    // private final Numbers numbers;
+    private final Map<Integer, ArrayList<int[]>> coords;
     
     public Board() {
         this.deck = new Deck();
         this.tiles = new Tiles();
-        // this.numbers = new Numbers();
+        this.coords = new HashMap<>();
     }
 
     public void initBoard() {
         this.deck.initDecks();
-        // System.out.println(this.deck);
 
         this.tiles.initTiles();
-        // System.out.println(this.tiles);
         
         this.tiles.shuffle();
-        // System.out.println(this.tiles);
         
         this.deck.shuffle();
-        // System.out.println(this.deck);
     }
 
     public void display() {
         JFrame frame = new JFrame("Board Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
-        frame.add(new HexBoardPanel(tiles.getTiles()));
-        frame.setVisible(true);        
+        HexBoardPanel panel = new HexBoardPanel(tiles.getTiles(), this.coords);
+        frame.add(panel);
+        frame.setVisible(true);
+        panel.paintImmediately(0, 0, frame.getWidth(), frame.getHeight());
     }
 
     private class HexBoardPanel extends JPanel {
         private final ArrayList<Tile> tiles;
+        private final Map<Integer, ArrayList<int[]>> coords;
     
-        public HexBoardPanel(ArrayList<Tile> tiles) {
+        public HexBoardPanel(ArrayList<Tile> tiles, Map<Integer, ArrayList<int[]>> coords) {
             this.tiles = tiles;
+            this.coords = coords;
         }
     
         @Override
@@ -75,7 +77,7 @@ public class Board {
                         String material = tile.getMaterial();
                         Color color = getMaterialColor(material);
                         Integer number = tile.getNumber() != 0 ? tile.getNumber() : null;
-                        drawHexagon(g2d, rowX + col * xOffset, rowY, tileSize, material, color, number);
+                        drawHexagon(g2d, rowX + col * xOffset, rowY, tileSize, material, color, tileIndex, number);
 
                         tileIndex++;
                     }
@@ -83,7 +85,7 @@ public class Board {
             }
         }
 
-        private void drawHexagon(Graphics2D g2d, int x, int y, int size, String material, Color color, Integer number) {
+        private void drawHexagon(Graphics2D g2d, int x, int y, int size, String material, Color color, int tileIndex, Integer number) {
             int[] xPoints = new int[6];
             int[] yPoints = new int[6];
             for (int i = 0; i < 6; i++) {
@@ -92,26 +94,13 @@ public class Board {
             }
 
             Polygon hexagon = new Polygon(xPoints, yPoints, 6);
-            System.out.println(material + " " + number);
-            ArrayList<int[]> arr = new ArrayList<>();
+            
+            ArrayList<int[]> pairs = new ArrayList<>();
             for (int i = 0; i < xPoints.length; i++) {
-                int[] coords = new int[2];
-                coords[0] = xPoints[i];
-                coords[1] = yPoints[i];
-                arr.add(coords);
-                System.out.println("Coord " + i + ": (" + coords[0] + ", " + coords[1] + ")");
-                String s = "(" + coords[0] + ", " + coords[1] + ")";
-                g2d.drawString(s, coords[0], coords[1]);
+                pairs.add(new int[]{xPoints[i], yPoints[i]});
             }
 
-            // for (int a : xPoints) {
-            //     System.out.println(a);
-            // }
-
-            // for (int b : yPoints) {
-            //     System.out.println(b);
-            // }
-            System.out.println();
+            coords.put(tileIndex, pairs);
             
             g2d.setColor(color);
             g2d.fillPolygon(hexagon);
@@ -163,5 +152,32 @@ public class Board {
                     return Color.LIGHT_GRAY; // Default color
             }
         }
-    }   
+    }
+
+    public Map<Integer, ArrayList<int[]>> getCoords() {
+        return this.coords;
+    }
+
+    @Override
+    public String toString() {
+        if (coords.isEmpty()) {
+            return "Coordinates map is empty. Ensure the board has been displayed.";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (var entry : this.coords.entrySet()) {
+            Tile tile = tiles.getTile(entry.getKey());
+            sb.append(tile.getMaterial()).append(" ").append(tile.getNumber()).append(" [\n\t\t");
+
+            ArrayList<int[]> pairs = entry.getValue();
+            for (int[] pair : pairs) {
+                sb.append("(").append(pair[0]).append(", ").append(pair[1]).append(")\n\t\t");
+            }
+
+            sb.append("\n]\n\n");
+        }
+
+        return sb.toString();
+    }
+
 }

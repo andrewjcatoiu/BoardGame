@@ -53,6 +53,10 @@ public class Tiles {
         return this.tiles;
     }
 
+    public Tile getTile(int index) {
+        return tiles.get(index);
+    }
+
     public ArrayList<Integer> getNumbers() {
         return this.numbers;
     }

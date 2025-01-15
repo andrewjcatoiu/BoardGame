@@ -15,13 +15,14 @@ public class Game {
         
         board.initBoard();
         Bank bank = new Bank();
-
         
-
+        
+        
         // dice.roll();
         // dice.roll();
         // dice.roll();
-
+        
         board.display();
+        System.out.println(board);
     }
 }
