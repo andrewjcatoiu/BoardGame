@@ -26,50 +26,25 @@ public class Bank {
     }
 
     public void deal(int roll) {
-        // ArrayList<Tile> tilesList = tiles.getTiles();
-
-        // int tileIndex = 0;
-        // for (Tile tile : tilesList) {
-        //     if (tile.getNumber() == roll) {
-        //         ArrayList<int[]> coords = board.getCoordinates(tileIndex);
-        //         Map<Integer, ArrayList<int[]>> activeCoords = new HashMap<>();
-        //         for (int[] pair : coords) {
-        //             // if house flag exists, add to activeCoords
-
-        //         }
-        //         // obtain coordinate pairs of tile
-        //         // check for house flag on each coordinate pair
-        //     }
-
-        //     tileIndex++;
-        // }
-
-        // ArrayList<Tile> tilesList = tiles.getTiles();
-        // int tileIndex = 0;
-        // for (Tile tile : tilesList) {
-        //     if (tile.getNumber() == roll) {
-
-        //     }
-        // }
-
         for (Player player : players) {
             Map<Integer, ArrayList<int[]>> activeCoords = player.getActiveCoords();
             for (var entry : activeCoords.entrySet()) {
                 int tileIndex = entry.getKey();
-                ArrayList<int[]> coords = entry.getValue();
-                String material = tiles.getTile(tileIndex).getMaterial();
-                
-                for (int[] pair : coords) {
-                    // if pair has settlement flag, add 1
-                    // if pair has city flag, add 2
+                if (tiles.getTile(tileIndex).getNumber() == roll) {
+                    ArrayList<int[]> coords = entry.getValue();
+                    String material = tiles.getTile(tileIndex).getMaterial();
+                    for (int[] pair : coords) {
+                        int inc = 0;
+                        if (pair[2] == 0 && pair[3] == 1) {
+                            inc = 2;
+                        } else if (pair[2] == 1 && pair[3] == 0) {
+                            inc = 1;
+                        }
+    
+                        player.updateHand(material, inc);
+                    }
                 }
             }
-
         }
-
     }
-
-    // roll a number X
-    // obtain coords of tiles with matching number X
-    // check each coord for house and settlement flags
 }
