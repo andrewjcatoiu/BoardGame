@@ -97,7 +97,9 @@ public class Board {
             
             ArrayList<int[]> pairs = new ArrayList<>();
             for (int i = 0; i < xPoints.length; i++) {
-                pairs.add(new int[]{xPoints[i], yPoints[i]});
+                // int[2] = settlement flag
+                // int[3] = city flag
+                pairs.add(new int[]{xPoints[i], yPoints[i], 0, 0});
             }
 
             coords.put(tileIndex, pairs);

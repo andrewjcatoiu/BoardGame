@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Bank {
 
@@ -29,6 +31,7 @@ public class Bank {
         for (Tile tile : tilesList) {
             if (tile.getNumber() == roll) {
                 ArrayList<int[]> coords = board.getCoordinates(tileIndex);
+                Map<Integer, ArrayList<int[]>> map = new HashMap<>();
                 // obtain coordinate pairs of tile
                 // check for house flag on each coordinate pair
             }
@@ -37,6 +40,7 @@ public class Bank {
         }
     }
 
-    //roll a number
-    //
+    // roll a number X
+    // obtain coords of tiles with matching number X
+    // check each coord for house and settlement flags
 }
