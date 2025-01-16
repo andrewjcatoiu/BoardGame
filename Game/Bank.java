@@ -10,18 +10,16 @@ public class Bank {
     public int ore;
     public int devs;
     private Tiles tiles;
-    private final Board board;
     private final ArrayList<Player> players;
     // public Map<Integer, ArrayList<int[]>> coords;
 
-    public Bank(Board board, ArrayList<Player> players) {
+    public Bank(ArrayList<Player> players) {
         this.wood = 19;
         this.brick = 19;
         this.sheep = 19;
         this.wheat = 19;
         this.ore = 19;
         this.devs = 25;
-        this.board = board;
         this.players = players;
     }
 
@@ -46,5 +44,9 @@ public class Bank {
                 }
             }
         }
+    }
+
+    public void build(int x, int y) {
+
     }
 }

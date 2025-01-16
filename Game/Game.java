@@ -6,7 +6,7 @@ public class Game {
         Board board = new Board();
         ArrayList<Player> order = dice.buildPlayerOrder();
 
-        Bank bank = new Bank(board, order);
+        Bank bank = new Bank(order);
 
         board.initBoard();
         board.display();
