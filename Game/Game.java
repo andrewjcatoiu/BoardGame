@@ -3,11 +3,11 @@ import java.util.ArrayList;
 public class Game {
     public static void main(String[] args) {
         Dice dice = new Dice();
-        Bank bank = new Bank();
         Board board = new Board();
+        Bank bank = new Bank(board);
 
         board.initBoard();
-        // board.display();
+        board.display();
         
         ArrayList<Player> order = dice.buildPlayerOrder();
         boolean flag = true;
@@ -19,6 +19,8 @@ public class Game {
             System.out.println();
             flag = false;
         }
+
+        System.out.println(board);
     }
 }
 

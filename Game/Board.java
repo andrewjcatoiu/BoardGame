@@ -154,6 +154,10 @@ public class Board {
         }
     }
 
+    public ArrayList<int[]> getCoordinates(int tileIndex) {
+        return this.coords.get(tileIndex);
+    }
+
     @Override
     public String toString() {
         if (coords.isEmpty()) {
