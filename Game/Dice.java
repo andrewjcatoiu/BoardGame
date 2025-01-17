@@ -4,6 +4,9 @@ import java.util.Random;
 
 /**
  * Class responsible for dice rolling and game randomness.
+ * 
+ * @author Andrew Catoiu
+ * @version January 2025
  */
 public class Dice {
 
