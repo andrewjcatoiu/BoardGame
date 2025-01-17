@@ -9,27 +9,51 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * Class responsible for drawing the board and storing playable coordinates.
+ * 
+ * @author Andrew Catoiu
+ * @version January 2025
+ */
 public class Board {
 
+    /**
+     * Initial deck of shuffled development cards.
+     */
     private final Deck deck;
+
+    /**
+     * Initial deck of shuffled hex tiles.
+     */
     private final Tiles tiles;
+
+    /**
+     * Map of playable coordinates. Each entry key is the index of a tile after shuffling, and its
+     * value is a list of coordinate pairs representing each of the six vertices for that tile.
+     */
     private static final Map<Integer, ArrayList<int[]>> coords = new HashMap<>();
 
+    /**
+     * Default constructor.
+     */
     public Board() {
         this.deck = new Deck();
         this.tiles = new Tiles();
     }
 
+    /**
+     * Initializes development cards and tiles. Cards and tiles are shuffled after.
+     */
     public void initBoard() {
         this.deck.initDecks();
-
         this.tiles.initTiles();
-        
-        this.tiles.shuffle();
-        
+        this.tiles.shuffle();    
         this.deck.shuffle();
     }
 
+    /**
+     * Opens frame and initializes inner class for drawing.
+     */
     public void display() {
         JFrame frame = new JFrame("Board Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,15 +64,37 @@ public class Board {
         panel.paintImmediately(0, 0, frame.getWidth(), frame.getHeight());
     }
 
+    /**
+     * Draws hexagon-shaped board.
+     */
     private class HexBoardPanel extends JPanel {
+
+        /**
+         * The list of tiles after shuffle.
+         */
         private final ArrayList<Tile> tiles;
+
+        /**
+         * Initial map of playable coordinates.
+         */
         private final Map<Integer, ArrayList<int[]>> coords;
     
+        /**
+         * Default constructor.
+         * 
+         * @param tiles the shuffled tiles
+         * @param coords the map to store coordinate pairs
+         */
         public HexBoardPanel(ArrayList<Tile> tiles, Map<Integer, ArrayList<int[]>> coords) {
             this.tiles = tiles;
             this.coords = coords;
         }
     
+        /**
+         * Automatically called during paint(). Draws a hexagon shaped component with 19 hexagon shaped sub-components.
+         * 
+         * @param g the {@code Graphics} context in shich to paint
+         */
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -94,24 +140,26 @@ public class Board {
         }
 
         /**
+         * Draws a singular hex tile. Components of tile include edges, fill color, material, roll number, and a circle to
+         * surround the roll number. Fill color is completely dependent on the material. Coordinate pairs are stored as an
+         * integer array of length 4, with the first two items being the x/y-coordinates, the third being a flag to indicate
+         * if a settlement has been built, and the fourth being a flag to indicate if a city has been built.
          * 
-         * @param g2d
-         * @param x
-         * @param y
-         * @param material
-         * @param color
-         * @param tileIndex
-         * @param number
-         * @param xPoints
-         * @param yPoints
+         * @param g2d the {@code Graphics 2D} context used for rendering the hexagon
+         * @param x the x-coordinate of the hexagon's center
+         * @param y the y-coordinate of the hexagon's center
+         * @param material the resource type associated with the tile 
+         * @param color the color to fill the hexagon
+         * @param tileIndex the index of the tile from the ArrayList, used to store its vertex coordinates
+         * @param number the roll number of the tile (can be {@code null} if the tile is a desert)
+         * @param xPoints an array of x-coordinates for the vertices of the hexagon
+         * @param yPoints an array of y-coordinates for the vertices of the hexagon
          */
         private void drawHexagon(Graphics2D g2d, int x, int y, String material, Color color, int tileIndex, Integer number, int[] xPoints, int[] yPoints) {
             Polygon hexagon = new Polygon(xPoints, yPoints, 6);
             
             ArrayList<int[]> pairs = new ArrayList<>();
             for (int i = 0; i < xPoints.length; i++) {
-                // int[2] = settlement flag
-                // int[3] = city flag
                 pairs.add(new int[]{xPoints[i], yPoints[i], 0, 0});
             }
 
@@ -148,30 +196,40 @@ public class Board {
             }
         }
     
+        /**
+         * Uses the associated material to determine the fill color of the tile.
+         * 
+         * @param material the resource type
+         * @return a fill color
+         */
         private Color getMaterialColor(String material) {
-            switch (material) {
-                case "Brick":
-                    return new Color(178, 34, 34); // Red
-                case "Wood":
-                    return new Color(34, 139, 34); // Green
-                case "Sheep":
-                    return new Color(144, 238, 144); // Light Green
-                case "Wheat":
-                    return new Color(240, 230, 140); // Yellow
-                case "Ore":
-                    return new Color(169, 169, 169); // Gray
-                case "Desert":
-                    return new Color(242, 179, 86); // Sand
-                default:
-                    return Color.LIGHT_GRAY; // Default color
-            }
+            return switch (material) {
+                case "Brick" -> new Color(255, 160, 0);
+                case "Wood" -> new Color(34, 139, 34);
+                case "Sheep" -> new Color(144, 238, 144);
+                case "Wheat" -> new Color(240, 230, 140);
+                case "Ore" -> new Color(163, 137, 138);
+                case "Desert" -> new Color(202, 167, 100);
+                default -> Color.LIGHT_GRAY;
+            };
         }
     }
 
+    /**
+     * Getter for a tile's vertices.
+     * 
+     * @param tileIndex the index used to locate the tile in the coordinates map
+     * @return returns a list of coordinate pairs
+     */
     public ArrayList<int[]> getTileVertices(int tileIndex) {
         return coords.get(tileIndex);
     }
 
+    /**
+     * Getter for all playable coordinates.
+     * 
+     * @return returns a map of tiles along with their associated list of vertex coordinates
+     */
     public static Map<Integer, ArrayList<int[]>> getCoordinates() {
         return coords;
     }
@@ -197,5 +255,4 @@ public class Board {
 
         return sb.toString();
     }
-
 }
