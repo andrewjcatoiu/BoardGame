@@ -27,7 +27,7 @@ public class Game {
 
         for (Player player : order) {
             if (player.getName().equals("Andrew")) {
-                player.buildSettlement(171, 199);
+                player.buildSettlement(171, 50);
                 System.out.println(player);
                 for (int i = 0; i < 10; i++) {
                     int roll = dice.roll();

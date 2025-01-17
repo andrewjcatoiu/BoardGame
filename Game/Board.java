@@ -19,7 +19,6 @@ public class Board {
     public Board() {
         this.deck = new Deck();
         this.tiles = new Tiles();
-        // this.coords = new HashMap<>();
     }
 
     public void initBoard() {
@@ -77,22 +76,25 @@ public class Board {
                         String material = tile.getMaterial();
                         Color color = getMaterialColor(material);
                         Integer number = tile.getNumber() != 0 ? tile.getNumber() : null;
-                        drawHexagon(g2d, rowX + col * xOffset, rowY, tileSize, material, color, tileIndex, number);
 
+                        int centerX = rowX + col * xOffset;
+                        int centerY = rowY;
+
+                        int[] xPoints = new int[6];
+                        int[] yPoints = new int[6];
+                        for (int i = 0; i < 6; i++) {
+                            xPoints[i] = (int) Math.round(centerX + tileSize * Math.cos(Math.toRadians(60 * i + 30)));
+                            yPoints[i] = (int) Math.round(centerY + tileSize * Math.sin(Math.toRadians(60 * i + 30)));
+                        }
+
+                        drawHexagon(g2d, centerX, centerY, material, color, tileIndex, number, xPoints, yPoints);
                         tileIndex++;
                     }
                 }
             }
         }
 
-        private void drawHexagon(Graphics2D g2d, int x, int y, int size, String material, Color color, int tileIndex, Integer number) {
-            int[] xPoints = new int[6];
-            int[] yPoints = new int[6];
-            for (int i = 0; i < 6; i++) {
-                xPoints[i] = x + (int) (size * Math.cos(Math.toRadians(60 * i + 30)));
-                yPoints[i] = y + (int) (size * Math.sin(Math.toRadians(60 * i + 30)));
-            }
-
+        private void drawHexagon(Graphics2D g2d, int x, int y, String material, Color color, int tileIndex, Integer number, int[] xPoints, int[] yPoints) {
             Polygon hexagon = new Polygon(xPoints, yPoints, 6);
             
             ArrayList<int[]> pairs = new ArrayList<>();
@@ -131,7 +133,6 @@ public class Board {
                 int numberX = x - g2d.getFontMetrics().stringWidth(numText) / 2;
                 int numberY = y + g2d.getFontMetrics().getAscent() + 5;
                 
-                g2d.setColor(Color.BLACK);
                 g2d.drawString(numText, numberX, numberY);
             }
         }
