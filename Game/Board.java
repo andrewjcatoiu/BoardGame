@@ -36,7 +36,7 @@ public class Board {
         JFrame frame = new JFrame("Board Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
-        HexBoardPanel panel = new HexBoardPanel(tiles.getTiles(), this.coords);
+        HexBoardPanel panel = new HexBoardPanel(Tiles.getTiles(), this.coords);
         frame.add(panel);
         frame.setVisible(true);
         panel.paintImmediately(0, 0, frame.getWidth(), frame.getHeight());

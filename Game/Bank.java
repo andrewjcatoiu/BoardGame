@@ -9,9 +9,7 @@ public class Bank {
     public int wheat;
     public int ore;
     public int devs;
-    private Tiles tiles;
     private final ArrayList<Player> players;
-    // public Map<Integer, ArrayList<int[]>> coords;
 
     public Bank(ArrayList<Player> players) {
         this.wood = 19;
@@ -28,9 +26,10 @@ public class Bank {
             Map<Integer, ArrayList<int[]>> activeCoords = player.getActiveCoords();
             for (var entry : activeCoords.entrySet()) {
                 int tileIndex = entry.getKey();
-                if (tiles.getTile(tileIndex).getNumber() == roll) {
+                ArrayList<Tile> tiles = Tiles.getTiles();
+                if (tiles.get(tileIndex).getNumber() == roll) {
                     ArrayList<int[]> coords = entry.getValue();
-                    String material = tiles.getTile(tileIndex).getMaterial();
+                    String material = tiles.get(tileIndex).getMaterial();
                     for (int[] pair : coords) {
                         int inc = 0;
                         if (pair[2] == 0 && pair[3] == 1) {
@@ -44,9 +43,5 @@ public class Bank {
                 }
             }
         }
-    }
-
-    public void build(int x, int y) {
-
     }
 }

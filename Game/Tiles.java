@@ -3,11 +3,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class Tiles {
-    private final ArrayList<Tile> tiles;
+    private static final ArrayList<Tile> tiles = new ArrayList<>();
     private final ArrayList<Integer> numbers;
 
     public Tiles() {
-        tiles = new ArrayList<>();
+        // tiles = new ArrayList<>();
         numbers = new ArrayList<>();
     }
 
@@ -49,8 +49,8 @@ public class Tiles {
         Collections.shuffle(tiles);
     }
 
-    public ArrayList<Tile> getTiles() {
-        return this.tiles;
+    public static ArrayList<Tile> getTiles() {
+        return tiles;
     }
 
     public Tile getTile(int index) {

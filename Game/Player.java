@@ -59,6 +59,24 @@ public class Player {
         this.hand.put(material, currAmount);
     }
 
+    public void buildSettlement(int x, int y) {
+        updateHand("Wood", -1);
+        updateHand("Brick", -1);
+        updateHand("Sheep", -1);
+        updateHand("Wheat", -1);
+
+        ArrayList<Tile> tiles = Tiles.getTiles();
+        // obtain all tiles with the coordinate pair (including tileIndex)
+        // change settlement flag to 1 in the int[] at int[2]
+        // add coordinate pair to active coords with map.put(tileIndex, ArrayList<int[]> coordinate pair )
+        
+    }
+
+    public void buildCity(int x, int y) {
+        updateHand("Wheat", -2);
+        updateHand("Ore", -3);
+    }
+
     @Override
     public String toString() {
         return this.name + " is playing as " + this.color;
