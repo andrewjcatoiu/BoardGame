@@ -37,7 +37,7 @@ public class Tiles {
                     int number = numbers.get(numberIndex);
                     tiles.add(new Tile(material, number, 0, 0));
                 } else {
-                    tiles.add(new Tile(material, 0, 0, 0));
+                    tiles.add(new Tile(material));
                 }
 
                 numberIndex++;
