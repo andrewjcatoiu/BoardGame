@@ -1,16 +1,54 @@
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Class responsible for trading and dealing cards to players.
+ * 
+ * @author Andrew Catoiu
+ * @version January 2025
+ */
 public class Bank {
 
+    /**
+     * Amount of wood in the bank.
+     */
     public int wood;
+
+    /**
+     * Amount of brick in the bank.
+     */
     public int brick;
+
+    /**
+     * Amount of sheep in the bank.
+     */
     public int sheep;
+
+    /**
+     * Amount of wheat in the bank.
+     */
     public int wheat;
+
+    /**
+     * Amount of ore in the bank.
+     */
     public int ore;
+
+    /**
+     * Amount of development cards available.
+     */
     public int devs;
+
+    /**
+     * The list of players in the game.
+     */
     private final ArrayList<Player> players;
 
+    /**
+     * Default constructor.
+     * 
+     * @param players the list of players
+     */
     public Bank(ArrayList<Player> players) {
         this.wood = 19;
         this.brick = 19;
@@ -21,6 +59,11 @@ public class Bank {
         this.players = players;
     }
 
+    /**
+     * Deals cards to players who control tiles associated with the number that has been rolled.
+     * 
+     * @param roll the roll number
+     */
     public void deal(int roll) {
         for (Player player : players) {
             Map<Integer, ArrayList<int[]>> activeCoords = player.getActiveCoords();
