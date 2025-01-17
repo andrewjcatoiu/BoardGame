@@ -9,13 +9,12 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
 public class Board {
 
     private final Deck deck;
     private final Tiles tiles;
     private static final Map<Integer, ArrayList<int[]>> coords = new HashMap<>();
-    
+
     public Board() {
         this.deck = new Deck();
         this.tiles = new Tiles();
@@ -94,6 +93,18 @@ public class Board {
             }
         }
 
+        /**
+         * 
+         * @param g2d
+         * @param x
+         * @param y
+         * @param material
+         * @param color
+         * @param tileIndex
+         * @param number
+         * @param xPoints
+         * @param yPoints
+         */
         private void drawHexagon(Graphics2D g2d, int x, int y, String material, Color color, int tileIndex, Integer number, int[] xPoints, int[] yPoints) {
             Polygon hexagon = new Polygon(xPoints, yPoints, 6);
             

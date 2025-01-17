@@ -1,7 +1,18 @@
 import java.util.ArrayList;
 
+/**
+ * Class responsible for running the simulation of this board game.
+ * 
+ * @author Andrew Catoiu
+ * @version January 2025
+ */
 public class Game {
-    public static void main(String[] args) {
+    /**
+     * Initializes all classes necessary to play the game.
+     * 
+     * @param args command line arguments
+     */
+    public static void main(String args[]) {
         Dice dice = new Dice();
         Board board = new Board();
         ArrayList<Player> order = dice.buildPlayerOrder();
