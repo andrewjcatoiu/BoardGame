@@ -1,14 +1,28 @@
-
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Class responsible for building the deck of development cards.
+ * 
+ * @author Andrew Catoiu
+ * @version January 2025
+ */
 public final class Deck {
+    /**
+     * The initial list of development cards.
+     */
     public ArrayList<DevCard> devs;
 
+    /**
+     * Default constructor.
+     */
     public Deck() {
         this.devs = new ArrayList<>();
     };
 
+    /**
+     * Populates the list of development cards. 
+     */
     public void initDecks() {
         String[][] devOptions = {{"Knight", "14"}, {"Victory Point", "5"}, {"Year of Plenty", "2"}, {"Monopoly", "2"}, {"Road Building", "2"}};
         for (String[] d : devOptions) {
@@ -21,6 +35,9 @@ public final class Deck {
         }
     }
 
+    /**
+     * Shuffles the list of development cards.
+     */
     public void shuffle() {
         Collections.shuffle(this.devs);
     }
