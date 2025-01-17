@@ -14,12 +14,12 @@ public class Board {
 
     private final Deck deck;
     private final Tiles tiles;
-    private final Map<Integer, ArrayList<int[]>> coords;
+    private static final Map<Integer, ArrayList<int[]>> coords = new HashMap<>();
     
     public Board() {
         this.deck = new Deck();
         this.tiles = new Tiles();
-        this.coords = new HashMap<>();
+        // this.coords = new HashMap<>();
     }
 
     public void initBoard() {
@@ -36,7 +36,7 @@ public class Board {
         JFrame frame = new JFrame("Board Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
-        HexBoardPanel panel = new HexBoardPanel(Tiles.getTiles(), this.coords);
+        HexBoardPanel panel = new HexBoardPanel(Tiles.getTiles(), coords);
         frame.add(panel);
         frame.setVisible(true);
         panel.paintImmediately(0, 0, frame.getWidth(), frame.getHeight());
@@ -156,8 +156,12 @@ public class Board {
         }
     }
 
-    public ArrayList<int[]> getCoordinates(int tileIndex) {
-        return this.coords.get(tileIndex);
+    public ArrayList<int[]> getTileVertices(int tileIndex) {
+        return coords.get(tileIndex);
+    }
+
+    public static Map<Integer, ArrayList<int[]>> getCoordinates() {
+        return coords;
     }
 
     @Override
@@ -167,7 +171,7 @@ public class Board {
         }
 
         StringBuilder sb = new StringBuilder();
-        for (var entry : this.coords.entrySet()) {
+        for (var entry : coords.entrySet()) {
             Tile tile = tiles.getTile(entry.getKey());
             sb.append(tile.getMaterial()).append(" ").append(tile.getNumber()).append(" [\n\t\t");
 
