@@ -76,28 +76,36 @@ public class Player {
         updateHand("Sheep", -1);
         updateHand("Wheat", -1);
 
-        // ArrayList<Tile> tiles = Tiles.getTiles();
         Map<Integer, ArrayList<int[]>> coords = Board.getCoordinates();
         int tileIndex = 0;
         for (var entry : coords.entrySet()) {
             ArrayList<int[]> pairs = entry.getValue();
             for (int[] pair : pairs) {
                 if (pair[0] == x && pair[1] == y) {
-                    // add to activeCoords map
-                    // updateActiveCoords(tileIndex, int[4] {x, y, 1, 0})
+                    updateActiveCoords(tileIndex, x, y, 1, 0);
                 }
             }
+
             tileIndex++;
         }
-        // obtain all tiles with the coordinate pair (including tileIndex)
-        // change settlement flag to 1 in the int[] at int[2]
-        // add coordinate pair to active coords with map.put(tileIndex, ArrayList<int[]> coordinate pair )
-        
     }
 
     public void buildCity(int x, int y) {
         updateHand("Wheat", -2);
         updateHand("Ore", -3);
+
+        Map<Integer, ArrayList<int[]>> coords = Board.getCoordinates();
+        int tileIndex = 0;
+        for (var entry : coords.entrySet()) {
+            ArrayList<int[]> pairs = entry.getValue();
+            for (int[] pair : pairs) {
+                if (pair[0] == x && pair[1] == y) {
+                    updateActiveCoords(tileIndex, x, y, 0, 1);
+                }
+            }
+
+            tileIndex++;
+        }
     }
 
     @Override
