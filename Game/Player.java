@@ -110,6 +110,38 @@ public class Player {
 
     @Override
     public String toString() {
-        return this.name + " is playing as " + this.color;
+        StringBuilder sb = new StringBuilder();
+        String str = this.name + " is playing as " + this.color + ".\n";
+        sb.append(str);
+        sb.append("Current hand: [\n");
+        for (var entry : hand.entrySet()) {
+            String material = entry.getKey();
+            int count = entry.getValue();
+            sb.append("\t").append(material).append(": ").append(count).append("\n");
+        }
+
+        sb.append("]\n\n");
+        sb.append("Active coordinates: [");
+        for (var entry : activeCoords.entrySet()) {
+            ArrayList<Tile> tiles = Tiles.getTiles();
+            Tile tile = tiles.get(entry.getKey());
+            sb.append(tile.getMaterial()).append(" ").append(tile.getNumber()).append(" [\n\t\t");
+
+            ArrayList<int[]> pairs = entry.getValue();
+            for (int[] pair : pairs) {
+                sb.append("(").append(pair[0]).append(", ").append(pair[1]).append(") ");
+
+                if (pair[2] == 1) {
+                    sb.append("Settlement");
+                } else if (pair[3] == 1) {
+                    sb.append("City");
+                }
+                
+                sb.append("\n\t\t");
+            }
+        }
+
+        sb.append("\n]\n\n");
+        return sb.toString();
     }
 }
