@@ -6,6 +6,7 @@ import java.awt.Polygon;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -135,6 +136,16 @@ public class Board {
                         drawHexagon(g2d, centerX, centerY, material, color, tileIndex, number, xPoints, yPoints);
                         tileIndex++;
                     }
+                }
+            }
+
+            int buttonRadius = 10;
+            for (var entry : coords.entrySet()) {
+                for (int[] vertex : entry.getValue()) {
+                    JButton button = new JButton();
+                    button.setBounds(vertex[0] - buttonRadius / 2, vertex[1] - buttonRadius / 2, buttonRadius, buttonRadius);
+                    button.addActionListener(e -> System.out.println("Button clicked at: " + vertex[0] + ", " + vertex[1]));
+                    this.add(button);
                 }
             }
         }
