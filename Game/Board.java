@@ -144,7 +144,7 @@ public class Board {
                 for (int[] vertex : entry.getValue()) {
                     JButton button = new JButton();
                     button.setBounds(vertex[0] - buttonRadius / 2, vertex[1] - buttonRadius / 2, buttonRadius, buttonRadius);
-                    button.addActionListener(e -> System.out.println("Button clicked at: " + vertex[0] + ", " + vertex[1]));
+                    button.addActionListener(_ -> System.out.println("Button clicked at: " + vertex[0] + ", " + vertex[1]));
                     this.add(button);
                 }
             }
