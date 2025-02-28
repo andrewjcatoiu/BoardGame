@@ -35,6 +35,9 @@ public class Player {
      */
     private int roads;
 
+    /**
+     * Flag for having 3 for 1 port.
+     */
     private boolean hasThreeForOne;
 
     /**
@@ -162,35 +165,21 @@ public class Player {
         this.hand.put(material, currAmount);
     }
 
+    // only accounts for default 4 for 1 / 3 for 1 flags
     public void trade(String tradeMat, String receivedMat) {
         if (this.hand.get(tradeMat) != null) {
-            // define flags (has 3 for 1, 2 for 1 will be implemented later)
-            // check for flags, default 4 for 1 with other flags set to false
             int amount = this.hand.get(tradeMat);
             if (amount == 0 || !Bank.checkResource(receivedMat)) {
                 return;
             }
 
             int requiredAmount = this.hasThreeForOne ? 3 : 4;
-
             if (amount >= requiredAmount) {
                 updateHand(tradeMat, -requiredAmount);
                 updateHand(receivedMat, 1);
+                Bank.updateTradingBlock(tradeMat, requiredAmount);
+                Bank.updateTradingBlock(receivedMat, -1);
             }
-            // if (!this.hasThreeForOne) {
-            //     if (amount >= 4 && Bank.checkResource(receivedMat)) {
-            //         updateHand(tradeMat, -4);
-            //         updateHand(receivedMat, 1);
-            //     }
-            // } else {
-            //     if (amount >= 3 && Bank.checkResource(receivedMat)) {
-            //         updateHand(tradeMat, -3);
-            //         updateHand(receivedMat, 1);
-            //     }
-            // }
-            // depending on flag, check for sufficient amount in player hand (check for at least 3 of the same resource in hand if 3 for 1 flag set to true, etc.)
-            // check if bank has the resource the player is looking for
-            // update player hand + bank
         }
     }
 
