@@ -21,6 +21,7 @@ public class Game {
 
         board.initBoard();
         board.display();
+        // board.chooseStructurePlacement(order);
         
         // boolean flag = true;
         // while (flag) {
@@ -48,9 +49,15 @@ public class Game {
             }
         }
 
+        // board.chooseStructurePlacement(order);
+
 
 
         System.out.println(board);
+    }
+
+    public void chooseStructurePlacement(ArrayList<Player> order) {
+        
     }
 }
 

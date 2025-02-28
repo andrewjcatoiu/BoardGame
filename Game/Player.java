@@ -206,6 +206,16 @@ public class Player {
         }
     }
 
+    public void trade(String tradeMat, String reveivedMat) {
+        if (this.hand.get(tradeMat) != null) {
+            // define flags (has 3 for 1, 2 for 1 will be implemented later)
+            // check for flags, default 4 for 1 with other flags set to false
+            // depending on flag, check for sufficient amount in player hand (check for at least 3 of the same resource in hand if 3 for 1 flag set to true, etc.)
+            // check if bank has the resource the player is looking for
+            // update player hand + bank
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

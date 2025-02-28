@@ -65,6 +65,8 @@ public class Board {
         panel.paintImmediately(0, 0, frame.getWidth(), frame.getHeight());
     }
 
+    
+
     /**
      * Draws hexagon-shaped board.
      */
@@ -206,6 +208,8 @@ public class Board {
                 g2d.drawString(numText, numberX, numberY);
             }
         }
+
+        
     
         /**
          * Uses the associated material to determine the fill color of the tile.
