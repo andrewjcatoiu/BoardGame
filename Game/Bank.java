@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -10,34 +11,11 @@ import java.util.Map;
 public class Bank {
 
     /**
-     * Amount of wood in the bank.
-     */
-    public static int wood;
-
-    /**
-     * Amount of brick in the bank.
-     */
-    public static int brick;
-
-    /**
-     * Amount of sheep in the bank.
-     */
-    public static int sheep;
-
-    /**
-     * Amount of wheat in the bank.
-     */
-    public static int wheat;
-
-    /**
-     * Amount of ore in the bank.
-     */
-    public static int ore;
-
-    /**
      * Amount of development cards available.
      */
     public static int devs;
+
+    public static Map<String, Integer> tradingBlock;
 
     /**
      * The list of players in the game.
@@ -50,13 +28,21 @@ public class Bank {
      * @param players the list of players
      */
     public Bank(ArrayList<Player> players) {
-        Bank.wood = 19;
-        Bank.brick = 19;
-        Bank.sheep = 19;
-        Bank.wheat = 19;
-        Bank.ore = 19;
         Bank.devs = 25;
+        Bank.tradingBlock = new HashMap<>();
+        Bank.tradingBlock.put("Wood", 19);
+        Bank.tradingBlock.put("Brick", 19);
+        Bank.tradingBlock.put("Sheep", 19);
+        Bank.tradingBlock.put("Wheat", 19);
+        Bank.tradingBlock.put("Ore", 19);
+
         this.players = players;
+    }
+
+    public static void updateTradingBlock(String material, int inc) {
+        int currAmount = tradingBlock.get(material);
+        currAmount += inc;
+        tradingBlock.put(material, currAmount);
     }
 
     /**
@@ -89,14 +75,6 @@ public class Bank {
     }
 
     public static boolean checkResource(String resource) {
-        Map<String, Integer> resources = Map.of(
-            "Wood", wood,
-            "Brick", brick,
-            "Sheep", sheep,
-            "Wheat", wheat,
-            "Ore", ore
-        );
-
-        return resources.getOrDefault(resource, 0) > 0;
+        return tradingBlock.getOrDefault(resource, 0) > 0;
     }
 }
