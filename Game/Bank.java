@@ -12,32 +12,32 @@ public class Bank {
     /**
      * Amount of wood in the bank.
      */
-    public int wood;
+    public static int wood;
 
     /**
      * Amount of brick in the bank.
      */
-    public int brick;
+    public static int brick;
 
     /**
      * Amount of sheep in the bank.
      */
-    public int sheep;
+    public static int sheep;
 
     /**
      * Amount of wheat in the bank.
      */
-    public int wheat;
+    public static int wheat;
 
     /**
      * Amount of ore in the bank.
      */
-    public int ore;
+    public static int ore;
 
     /**
      * Amount of development cards available.
      */
-    public int devs;
+    public static int devs;
 
     /**
      * The list of players in the game.
@@ -50,12 +50,12 @@ public class Bank {
      * @param players the list of players
      */
     public Bank(ArrayList<Player> players) {
-        this.wood = 19;
-        this.brick = 19;
-        this.sheep = 19;
-        this.wheat = 19;
-        this.ore = 19;
-        this.devs = 25;
+        Bank.wood = 19;
+        Bank.brick = 19;
+        Bank.sheep = 19;
+        Bank.wheat = 19;
+        Bank.ore = 19;
+        Bank.devs = 25;
         this.players = players;
     }
 
@@ -86,5 +86,17 @@ public class Bank {
                 }
             }
         }
+    }
+
+    public static boolean checkResource(String resource) {
+        Map<String, Integer> resources = Map.of(
+            "Wood", wood,
+            "Brick", brick,
+            "Sheep", sheep,
+            "Wheat", wheat,
+            "Ore", ore
+        );
+
+        return resources.getOrDefault(resource, 0) > 0;
     }
 }

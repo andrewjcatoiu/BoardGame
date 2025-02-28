@@ -35,10 +35,13 @@ public class Player {
      */
     private int roads;
 
+    private boolean hasThreeForOne;
+
     /**
      * The player's current hand of cards.
      */
     private final Map<String, Integer> hand;
+
 
     /**
      * A map of tile vertex coordinates controlled by the player.
@@ -57,6 +60,7 @@ public class Player {
         this.settlements = 5;
         this.cities = 4;
         this.roads = 15;
+        this.hasThreeForOne = false;
         
         this.hand = new HashMap<>();
         this.hand.put("Wood", 0);
@@ -111,6 +115,10 @@ public class Player {
      */
     public int getRoads() {
         return this.roads;
+    }
+
+    public void setPortForThree() {
+        this.hasThreeForOne = true;
     }
 
     /**
@@ -206,10 +214,16 @@ public class Player {
         }
     }
 
-    public void trade(String tradeMat, String reveivedMat) {
+     public void trade(String tradeMat, String reveivedMat) {
         if (this.hand.get(tradeMat) != null) {
             // define flags (has 3 for 1, 2 for 1 will be implemented later)
             // check for flags, default 4 for 1 with other flags set to false
+            int amount = this.hand.get(tradeMat);
+            if (!this.hasThreeForOne) {
+                if (amount >= 4 /* and bank has "receivedMat" */) {
+
+                }
+            }
             // depending on flag, check for sufficient amount in player hand (check for at least 3 of the same resource in hand if 3 for 1 flag set to true, etc.)
             // check if bank has the resource the player is looking for
             // update player hand + bank
