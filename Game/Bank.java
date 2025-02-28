@@ -77,4 +77,20 @@ public class Bank {
     public static boolean checkResource(String resource) {
         return tradingBlock.getOrDefault(resource, 0) > 0;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        String str = "Cards Available: [\n";
+        sb.append(str);
+        for (var entry : tradingBlock.entrySet()) {
+            String resource = entry.getKey();
+            int count = entry.getValue();
+            sb.append("\t").append(resource).append(": ").append(count).append("\n");
+        }
+
+        sb.append("]\n\n");
+        sb.append("Remaining Development Cards: ").append(Bank.devs).append("\n\n");
+        return sb.toString();
+    }
 }

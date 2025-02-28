@@ -37,6 +37,7 @@ public class Game {
         //     flag = false;
         // }
 
+        System.out.println(bank);
         for (Player player : order) {
             if (player.getName().equals("Andrew")) {
                 player.buildSettlement(171, 50);
@@ -50,7 +51,6 @@ public class Game {
         }
 
         // board.chooseStructurePlacement(order);
-
 
 
         System.out.println(board);
