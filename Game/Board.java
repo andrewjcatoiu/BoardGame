@@ -2,10 +2,12 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Polygon;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -184,12 +186,34 @@ public class Board {
             g2d.setColor(Color.BLACK);
             g2d.drawPolygon(hexagon);
 
-            g2d.setColor(Color.BLACK);
-            String text = material;
-            int textX = x - g2d.getFontMetrics().stringWidth(text) / 2;
-            int textY = y + g2d.getFontMetrics().getAscent() - 15;
+            // g2d.setColor(Color.BLACK);
+            // String text = material;
+            // int textX = x - g2d.getFontMetrics().stringWidth(text) / 2;
+            // int textY = y + g2d.getFontMetrics().getAscent() - 15;
 
-            g2d.drawString(text, textX, textY);
+            // g2d.drawString(text, textX, textY);
+
+            ImageIcon icon;
+            switch (material) {
+                case "Wood" -> icon = new ImageIcon("./icons/wood-pile.png");
+                case "Brick" -> icon = new ImageIcon("./icons/brick-pile.png");
+                case "Sheep" -> icon = new ImageIcon("./icons/sheep.png");
+                case "Wheat" -> icon = new ImageIcon("./icons/wheat.png");
+                case "Ore" -> icon = new ImageIcon("./icons/stone-pile.png");
+                default -> icon = null;
+            }
+
+            if (icon != null) {
+                int targetWidth = 30;
+                int targetHeight = 30;
+
+                Image scaledImage = icon.getImage().getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
+                ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+                int iconX = x - targetWidth / 2;
+                int iconY = y - targetHeight / 2 - 15;
+                scaledIcon.paintIcon(this, g2d, iconX, iconY);
+            }
 
             if (number != null) {
                 int circleRadius = 20;
